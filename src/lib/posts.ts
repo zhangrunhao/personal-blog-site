@@ -1,14 +1,14 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-import { remark } from 'remark';
-import html from 'remark-html';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
 
-const postsDirectory = path.join(process.cwd(), 'content');
+const postsDirectory = path.join(process.cwd(), "content");
 
-export function getPostData(slug) {
+export function getPostData(slug: string) {
   const filePath = path.join(postsDirectory, `${slug}.md`);
-  const fileContents = fs.readFileSync(filePath, 'utf8');
+  const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
 
   return {
@@ -18,14 +18,14 @@ export function getPostData(slug) {
   };
 }
 
-export async function getPostContentHtml(content) {
+export async function getPostContentHtml(content: any) {
   const processedContent = await remark().use(html).process(content);
   return processedContent.toString();
 }
 
 export function getAllPostSlugs() {
   const fileNames = fs.readdirSync(postsDirectory);
-  return fileNames.map(fileName => ({
-    slug: fileName.replace(/\.md$/, ''),
+  return fileNames.map((fileName) => ({
+    slug: fileName.replace(/\.md$/, ""),
   }));
 }

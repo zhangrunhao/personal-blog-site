@@ -7,8 +7,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function BlogPost({ params }) {
-  const post = getPostData(params.slug);
+export default async function BlogPost({ params  }: {params: any}) {
+  const post: any = getPostData(params.slug);
   const contentHtml = await getPostContentHtml(post.content);
 
   return (
